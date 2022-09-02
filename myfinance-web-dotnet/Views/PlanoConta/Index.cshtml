@@ -2,51 +2,95 @@
     ViewData["Title"] = "Plano Contas";
 }
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
 <h3>Plano de Contas</h3>
 <hr>
 
-<button type = "button" class = "btn btn-block btn-primary" onclick="CriarPlanoConta()">Criar Plano de Conta</button>
+<button type="button" class="btn btn-block btn-primary" onclick="CriarPlanoConta()">Criar Plano de Conta</button>
 
 <table class='table table-bordered'>
-  <tr>
-    <th>#</th>
-    <th>#</th>
-    <th>Id</th>
-    <th>Descricao</th>
-    <th>Tipo</th>
-  </tr>
+    <tr>
+        <th>#</th>
+        <th>#</th>
+        <th>Id</th>
+        <th>Descricao</th>
+        <th>Tipo</th>
+    </tr>
 
-  @{
+    @{
     foreach(var item in (List<PlanoContaModel>)ViewBag.Lista)
     {
-            <tr>
-                <td><button type="button" class = "btn btn-block btn-warning" onclick="EditarPlanoConta(@item.Id.ToString())">Editar</button></td>
-                <td><button type="button" class = "btn btn-block btn-danger" onclick="ExcluirPlanoConta(@item.Id.ToString())">Excluir</button></td>
-                <td>@item.Id</td>
-                <td>@item.Descricao</td>
-                <td>@item.Tipo</td>
-            </tr>
+        <tr>
+            <td><button type="button" class="btn btn-block btn-warning" onclick="EditarPlanoConta(@item.Id.ToString())">Editar</button></td>
+            <td>
+                <button type="button" class="btn btn-block btn-danger" data-target="#myModal" data-toggle="modal" onclick="EnviarIdExcluir(@item.Id.ToString())">Excluir</button>
+            </td>
+            <td>@item.Id</td>
+            <td>@item.Descricao</td>
+            <td>@item.TraducaoSaidaTipo()</td>
+        </tr>
     }
 
-  }
+    }
 </table>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-body">
+                Você realmente deseja excluir esse item?
+            </div>
+            <div class="modal-footer">
+                
+                <button data-dismiss="modal" type="button" class="btn btn-default">Cancelar</button>
+                <button id="botaoDelete" type="button" class="btn btn-primary">Deletar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script>
 
-        function CriarPlanoConta()
-        {
-            window.location.href = "../PlanoConta/CriarPlanoConta";
-        }
+    function CriarPlanoConta() {
+        window.location.href = "../PlanoConta/CriarPlanoConta";
+    }
 
-        function EditarPlanoConta(id)
-        {
-            window.location.href = "../PlanoConta/CriarPlanoConta/" + id;
-        }
+    function EditarPlanoConta(id) {
+        window.location.href = "../PlanoConta/CriarPlanoConta/" + id;
+    }
 
-        function ExcluirPlanoConta(id)
-        {
-            window.location.href = "../PlanoConta/ExcluirPlanoConta/" + id;
-        }
+    function ExcluirPlanoConta(id) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "../PlanoConta/ExcluirPlanoConta/" + id);
+        xhttp.send();
 
-         
+        window.location.reload();
+        window.location.reload();
+    }
+
+    function EnviarIdExcluir(id) {
+        document.getElementById("botaoDelete").setAttribute("onClick", "javascript: ExcluirPlanoConta(" + id + ");");
+    }
+
+
 </script>
