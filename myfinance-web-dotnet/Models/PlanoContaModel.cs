@@ -43,6 +43,18 @@ namespace myfinance_web_dotnet.Models
             objDAL.Desconectar();
         }
 
+        public String TraducaoSaidaTipo()
+        {
+            if (Tipo.Equals("R"))
+            {
+                return "Receita";
+            }
+            else
+            {
+                return "Despesa";
+            }
+        }
+
 
         public PlanoContaModel CarregarPlanoContaPorId(int? id)
         {

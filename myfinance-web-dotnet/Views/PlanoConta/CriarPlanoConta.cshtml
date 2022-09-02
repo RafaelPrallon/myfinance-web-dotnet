@@ -2,27 +2,26 @@
 @{
     ViewData["Title"] = "Plano de Contas";
     var vDescricao = string.Empty;
-    var vTipo = string.Empty;
+    var vTipoReceita = "R";
+    var vTipoDespesa = "D";
 
     try{
         vDescricao = @ViewBag.PlanoConta.Descricao;
-        vTipo = @ViewBag.PlanoConta.Tipo;
-
     }
     catch{}
     
 }
 
 <h1>@ViewData["Title"]</h1>
-
 <form asp-controller=PlanoConta asp-action="CriarPlanoConta">
-  
-  <input type="hidden" asp-for="Id"><br>
-  <label for="fname">Descrição:</label><br>
-  <input type="text" asp-for="Descricao" value=@vDescricao><br>
-  
-  <label for="lname">Tipo:</label><br>
-  <input type="text" asp-for="Tipo" value=@vTipo><br>
 
-  <button type="submit" class="btn btn-block btn-success">Registrar</button>
+    <input type="hidden" asp-for="Id"><br>
+    <label for="fname">Descrição:</label><br>
+    <input type="text" asp-for="Descricao" value=@vDescricao><br>
+
+    <label for="lname">Tipo:</label><br>
+    <input type="radio" asp-for="Tipo" value=@vTipoReceita>Receita<br>
+    <input type="radio" asp-for="Tipo" value=@vTipoDespesa>Despesa<br>
+
+    <button type="submit" class="btn btn-block btn-success">Registrar</button>
 </form>
