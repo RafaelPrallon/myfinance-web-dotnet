@@ -1,13 +1,14 @@
 # myfinance-web-dotnet
 - [myfinance-web-dotnet](#myfinance-web-dotnet)
-  - [Sobre](#sobre)
-  - [Script Database](#script-database)
+	- [Sobre](#sobre)
+	- [Script Database](#script-database)
+	- [Como conectar ao banco de dados](#como-conectar-ao-banco-de-dados)
 
 ## Sobre
 MyFinance - Projeto do Curso de Pós-Graduação em Engenharia de Software da PUC-MG
 
-Nesse projeto será utilizada a stack dotnet e maria db.
-O script pra a criação das entidades se encontra na sessão [Script Database](#script-database)
+Nesse projeto será utilizada a stack dotnet e, inicialmente, MariaDB mas foi alterado para SQLServer.
+O script pra a criação das entidades se encontra na sessão [Script Database](#script-database) na versão de MariaDB
 
 <img src="images/db-diagram.png">
 
@@ -29,3 +30,10 @@ create table transacao(
 	primary key(id),
 	foreign key(id_plano_conta) references plano_contas(id)
 );
+
+## Como conectar ao banco de dados
+
+Para utilizar a aplicação em ambiente local, é necessário seguir os seguintes passos:
+1- Criar o banco de dados no SQLServer;
+
+2- Alterar em myfinance-web-dotnet/appsettings.json a ConnectionString onde server é o endereço do banco de dados e Database o nome do banco de dados;
